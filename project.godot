@@ -8,15 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "TurnQueue",
+"language": "GDScript",
+"path": "res://TurnQueue.gd"
+} ]
 _global_script_class_icons={
-
+"TurnQueue": ""
 }
 
 [application]
 
-config/name="Payamedicos"
-run/main_scene="res://Player.tscn"
+config/name="Payamédicos"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [display]
