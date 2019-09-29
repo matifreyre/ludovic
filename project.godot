@@ -15,8 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Payamedicoss"
-run/main_scene="res://Payamedicos.tscn"
+config/name="Payamedicos"
+run/main_scene="res://Player.tscn"
 config/icon="res://icon.png"
 
 [display]
