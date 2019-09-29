@@ -20,4 +20,4 @@ func _on_PlayerArea_input_event(viewport, event, shape_idx):
 		emit_signal("released")
 
 func _on_Player_released():
-	self.set_global_position(position.snapped(POSITION_ADJUSTMENT*2))
+	self.set_global_position(position.snapped(POSITION_ADJUSTMENT * 2))
