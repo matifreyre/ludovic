@@ -61,11 +61,11 @@ func snap_position():
 func move(direction):
 	has_turn = false	# evita doble movimiento dentro del mismo turno
 	coordinates += direction
+	# Acoto la nueva posición a la pantalla
 	var new_position = coordinates * CELL_SIZE
-	# Acoto la posición
 	new_position.x = clamp(new_position.x, 0, SCREEN_RIGHTMOST_POS)
 	new_position.y = clamp(new_position.y, 0, SCREEN_BOTTOM_POS)
-	coordinates = new_position / CELL_SIZE	# ajusto coordenadas con posición ajustada
+	coordinates = new_position / CELL_SIZE	# ajusto coordenadas con posición acotada
 	# Uso Tween para que la transición no sea discreta, sino contínua
 	$Tween.interpolate_property(self, "position", position, new_position, 
 			transition_time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
