@@ -4,13 +4,15 @@ signal character_moved
 
 export var transition_time : float = 0.5
 export var character_name : String
+export var initial_column : int 
+export var initial_row : int
 
 onready var position_adjustment : Vector2 = -$PlayerSprite.get_rect().size
 onready var cell_size : Vector2 = $PlayerSprite.get_rect().size * 2
-onready var coordinates = position / cell_size
+onready var coordinates = Vector2(initial_column, initial_row)
 onready var max_column = self.get_parent().columns - 1
 onready var max_row = self.get_parent().rows - 1
-
+ 
 var has_turn = false 
 var is_grabbed = false
 
@@ -18,8 +20,7 @@ var is_grabbed = false
 func _ready():
 	# Todavía no sé para qué es esto, viene de ejemplos online pero funciona sin esta línea 
 	# set_process(true)
-	print(character_name)
-	print(coordinates)
+	self.set_global_position(coordinates * cell_size)
 
 
 func _process(delta):
@@ -62,11 +63,8 @@ func snap_position():
 func move(direction):
 	has_turn = false	# evita doble movimiento dentro del mismo turno
 	coordinates += direction
-	print(max_column)
-	print(max_row)
 	coordinates.x = clamp(coordinates.x, 0, max_column)
 	coordinates.y = clamp(coordinates.y, 0, max_row)
-	print(coordinates)
 	var new_position = coordinates * cell_size
 # 	TODO Por alguna extraña razón, si delego en la función no respeta los turnos correctamente.
 #	self.animated_displacement(new_position)
@@ -85,7 +83,5 @@ func move(direction):
 	
 	
 func play_turn():
-	print(character_name)
-	print(coordinates)
 	has_turn = true		# habilita escuchar el input
 	yield(self, "character_moved")	# espero a que se mueva el personaje para terminar el turno

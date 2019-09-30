@@ -14,5 +14,7 @@ character_name = "Pato Pochoclero"
 modulate = Color( 0.952941, 0.294118, 0.294118, 1 )
 position = Vector2( 896, 512 )
 character_name = "Payamédico"
+initial_column = 7
+initial_row = 4
 
 [node name="TurnQueue" parent="." instance=ExtResource( 3 )]
