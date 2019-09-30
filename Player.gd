@@ -2,30 +2,29 @@ extends Node2D
 
 signal character_moved
 
-export var transition_time : float = 0.5
-export var character_name : String
-export var initial_column : int 
-export var initial_row : int
+export(String, "Pato Pochoclero", "Payamédico") var character_name
+export(int, 7) var initial_column 
+export(int, 5) var initial_row
+export(float, 0, 1, 0.1) var transition_time = 0.5
 
 onready var position_adjustment : Vector2 = -$PlayerSprite.get_rect().size
 onready var cell_size : Vector2 = $PlayerSprite.get_rect().size * 2
 onready var coordinates = Vector2(initial_column, initial_row)
-onready var max_column = self.get_parent().columns - 1
-onready var max_row = self.get_parent().rows - 1
+onready var max_column : int = self.get_parent().columns - 1
+onready var max_row : int = self.get_parent().rows - 1
  
 var has_turn = false 
 var is_grabbed = false
 
 
 func _ready():
-	# Todavía no sé para qué es esto, viene de ejemplos online pero funciona sin esta línea 
-	# set_process(true)
+	# Posición inicial de acuerdo a las coordenadas configuradas
 	self.set_global_position(coordinates * cell_size)
 
 
 func _process(delta):
 	# Seguir el movimiento del mouse durante el drag
-	# Posición final es top-left, pero durante el drag está en el centro
+	# Posición final es top-left, pero durante el drag el cursor lo quiero en el centro
 	if is_grabbed:
 		self.set_global_position(get_global_mouse_position() + position_adjustment)
 
@@ -58,7 +57,7 @@ func snap_position():
 	coordinates = position / cell_size
 	
 	
-# Mover en exactamente una celda en la dirección correspondiente.
+# Mover exactamente una celda en la dirección correspondiente.
 # TODO Debe haber una mejor forma de acotar el espacio y hacer la transición
 func move(direction):
 	has_turn = false	# evita doble movimiento dentro del mismo turno
