@@ -2,34 +2,53 @@ extends "res://addons/gut/test.gd"
 
 var Player = preload('res://Player.gd')
 var player
-const viewport_size = Vector2(100,100)
+const VIEWPORT_SIZE = Vector2(100,100)
+const CELL_SIZE = Vector2(-10,-10)
+const ORIGIN = Vector2(0,0)
 
 func before_each():
 	player = Player.new()
-	player.set_cell_size(Vector2(10,10))
+	player.set_cell_size(CELL_SIZE)
+	
+func test_player_starts_on_upper_left_corner():
+	assert_eq(ORIGIN, player.get_position())
+	
+func test_players_next_position_down_from_origin():
+	var next_position = player.get_next_position(Vector2.DOWN, VIEWPORT_SIZE)
+	assert_eq(0, next_position.x)
+	assert_eq(- CELL_SIZE.y, next_position.y)
+
+func test_players_next_position_right_from_origin():
+	var next_position = player.get_next_position(Vector2.RIGHT, VIEWPORT_SIZE)
+	assert_eq(- CELL_SIZE.x, next_position.x)
+	assert_eq(0, next_position.y)
+	
+func test_players_next_position_left_from_origin_is_origin():
+	var next_position = player.get_next_position(Vector2.LEFT, VIEWPORT_SIZE)
+	assert_eq(ORIGIN, next_position)
+	
+func test_players_next_position_up_from_origin_is_origin():
+	var next_position = player.get_next_position(Vector2.UP, VIEWPORT_SIZE)
+	assert_eq(ORIGIN, next_position)
+	
+func test_players_next_position_left_when_not_in_origin():
 	player.set_position(Vector2(20,20))
+	var next_position = player.get_next_position(Vector2.LEFT, VIEWPORT_SIZE)
+	assert_eq(20 + CELL_SIZE.x, next_position.x)
+	assert_eq(20, next_position.y)
 	
+func test_players_next_position_up_when_not_in_origin():
+	player.set_position(Vector2(20,20))
+	var next_position = player.get_next_position(Vector2.UP, VIEWPORT_SIZE)
+	assert_eq(20, next_position.x)
+	assert_eq(20 + CELL_SIZE.y, next_position.y)
 
-func test_players_next_position_up():
-	var initial_position = player.get_position()
-	var next_position = player.get_next_position(Vector2.UP, viewport_size)
-	assert_eq(initial_position.x, next_position.x)
-	assert_ne(initial_position.y, next_position.y)
-
-func test_players_next_position_down():
-	var initial_position = player.get_position()
-	var next_position = player.get_next_position(Vector2.DOWN, viewport_size)
-	assert_eq(initial_position.x, next_position.x)
-	assert_ne(initial_position.y, next_position.y)
-
-func test_players_next_position_left():
-	var initial_position = player.get_position()
-	var next_position = player.get_next_position(Vector2.LEFT, viewport_size)
-	assert_ne(initial_position.x, next_position.x)
-	assert_eq(initial_position.y, next_position.y)
+func test_players_next_position_right_when_on_rightmost_cell():
+	player.set_position(VIEWPORT_SIZE)
+	var next_position = player.get_next_position(Vector2.RIGHT, VIEWPORT_SIZE)
+	assert_eq(VIEWPORT_SIZE + CELL_SIZE, next_position)
 	
-func test_players_next_position_right():
-	var initial_position = player.get_position()
-	var next_position = player.get_next_position(Vector2.RIGHT, viewport_size)
-	assert_ne(initial_position.x, next_position.x)
-	assert_eq(initial_position.y, next_position.y)
+func test_players_next_position_down_when_on_lowest_cell():
+	player.set_position(VIEWPORT_SIZE)
+	var next_position = player.get_next_position(Vector2.DOWN, VIEWPORT_SIZE)
+	assert_eq(VIEWPORT_SIZE + CELL_SIZE, next_position)

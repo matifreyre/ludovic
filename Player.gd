@@ -4,7 +4,6 @@ onready var POSITION_ADJUSTMENT : Vector2 = -$PlayerSprite.get_rect().size
 onready var CELL_SIZE : Vector2 = POSITION_ADJUSTMENT * 2
 
 var is_grabbed = false
-#var coordinates = Vector2(0,0)
 
 func _ready():
 	# Todavía no sé para qué es esto, viene de ejemplos online pero funciona sin esta línea 
@@ -39,7 +38,6 @@ func _on_PlayerArea_input_event(viewport, event, shape_idx):
 # Ajustar posición a grilla según tamaño de celda
 func snap_position():
 	self.set_global_position(position.snapped(CELL_SIZE))
-#	coordinates = position / CELL_SIZE
 	
 # Mover en exactamente una celda en la dirección correspondiente.
 # TODO Debe haber una mejor forma de acotar el espacio y hacer la transición
@@ -53,15 +51,14 @@ func get_next_position(direction, viewport_size):
 	new_position.y = clamp(new_position.y, 0, viewport_size.y + CELL_SIZE.y)
 	return new_position
 	
-func set_cell_size(size):
-	CELL_SIZE = size
-	
 func coordinates():
 	return position / CELL_SIZE
-	
 	
 # Uso Tween para que la transición no sea instantánea sino contínua
 func transition_movement_to(new_position):
 	$Tween.interpolate_property(self, "position", position, new_position, 
 			0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
+	
+func set_cell_size(size):
+	CELL_SIZE = size
