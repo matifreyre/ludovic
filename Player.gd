@@ -2,30 +2,31 @@ extends Node2D
 
 signal character_moved
 
-export var transition_time = 0.5
+export var transition_time : float = 0.5
 export var character_name : String
 
-onready var POSITION_ADJUSTMENT : Vector2 = -$PlayerSprite.get_rect().size
-onready var CELL_SIZE : Vector2 = $PlayerSprite.get_rect().size * 2
-onready var SCREEN_RIGHTMOST_POS : float = get_viewport_rect().size.x - CELL_SIZE.x
-onready var SCREEN_BOTTOM_POS : float = get_viewport_rect().size.y - CELL_SIZE.y
+onready var position_adjustment : Vector2 = -$PlayerSprite.get_rect().size
+onready var cell_size : Vector2 = $PlayerSprite.get_rect().size * 2
+onready var coordinates = position / cell_size
+onready var max_column = self.get_parent().columns - 1
+onready var max_row = self.get_parent().rows - 1
 
 var has_turn = false 
 var is_grabbed = false
-onready var coordinates = position / CELL_SIZE
 
 
 func _ready():
 	# Todavía no sé para qué es esto, viene de ejemplos online pero funciona sin esta línea 
 	# set_process(true)
-	pass
+	print(character_name)
+	print(coordinates)
 
 
 func _process(delta):
 	# Seguir el movimiento del mouse durante el drag
 	# Posición final es top-left, pero durante el drag está en el centro
 	if is_grabbed:
-		self.set_global_position(get_global_mouse_position() + POSITION_ADJUSTMENT)
+		self.set_global_position(get_global_mouse_position() + position_adjustment)
 
 
 # Movimiento con teclas
@@ -52,8 +53,8 @@ func _on_PlayerArea_input_event(viewport, event, shape_idx):
  
 # Ajustar posición a grilla según tamaño de celda
 func snap_position():
-	self.set_global_position(position.snapped(CELL_SIZE))
-	coordinates = position / CELL_SIZE
+	self.set_global_position(position.snapped(cell_size))
+	coordinates = position / cell_size
 	
 	
 # Mover en exactamente una celda en la dirección correspondiente.
@@ -61,19 +62,30 @@ func snap_position():
 func move(direction):
 	has_turn = false	# evita doble movimiento dentro del mismo turno
 	coordinates += direction
-	# Acoto la nueva posición a la pantalla
-	var new_position = coordinates * CELL_SIZE
-	new_position.x = clamp(new_position.x, 0, SCREEN_RIGHTMOST_POS)
-	new_position.y = clamp(new_position.y, 0, SCREEN_BOTTOM_POS)
-	coordinates = new_position / CELL_SIZE	# ajusto coordenadas con posición acotada
-	# Uso Tween para que la transición no sea discreta, sino contínua
+	print(max_column)
+	print(max_row)
+	coordinates.x = clamp(coordinates.x, 0, max_column)
+	coordinates.y = clamp(coordinates.y, 0, max_row)
+	print(coordinates)
+	var new_position = coordinates * cell_size
+# 	TODO Por alguna extraña razón, si delego en la función no respeta los turnos correctamente.
+#	self.animated_displacement(new_position)
 	$Tween.interpolate_property(self, "position", position, new_position, 
 			transition_time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$Tween.start()
-	yield($Tween, "tween_completed")	# espero a terminar la animación
+	yield($Tween, "tween_completed")	# espero a terminar la animación	
 	emit_signal("character_moved")	# aviso que el personaje se movió
 	
 	
+#func animated_displacement(new_position : Vector2):
+#	$Tween.interpolate_property(self, "position", position, new_position, 
+#			transition_time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#	$Tween.start()
+#	yield($Tween, "tween_completed")	# espero a terminar la animación	
+	
+	
 func play_turn():
+	print(character_name)
+	print(coordinates)
 	has_turn = true		# habilita escuchar el input
 	yield(self, "character_moved")	# espero a que se mueva el personaje para terminar el turno
