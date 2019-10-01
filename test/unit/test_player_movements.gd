@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-var Player = preload('res://Player.gd')
+var Player = preload('res://scripts/Player.gd')
 var player
 const VIEWPORT_SIZE = Vector2(100,100)
 const CELL_SIZE = Vector2(10,10)
@@ -11,7 +11,7 @@ func get_next_position(direction):
 	return player.get_position_for(next_coordinates)
 
 func before_each():
-	player = Player.new()
+	player = Player.new() 
 	player.max_column = 9
 	player.max_row = 9
 	player.cell_size = CELL_SIZE

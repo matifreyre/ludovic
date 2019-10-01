@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-var player_scene = preload('res://Player.tscn')
+var player_scene = preload('res://scenes/Player.tscn')
 var player
 
 func before_each():

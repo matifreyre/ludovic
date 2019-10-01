@@ -12,8 +12,6 @@ export(float, 0, 1, 0.1) var transition_time = 0.5
 onready var position_adjustment : Vector2 = -$PlayerSprite.get_rect().size
 onready var cell_size : Vector2 = $PlayerSprite.get_rect().size * 2 setget set_cell_size, get_cell_size
 onready var coordinates = Vector2(initial_column, initial_row) setget set_coordinates, get_coordinates
-#onready var max_column : int = self.get_parent().columns - 1
-#onready var max_row : int = self.get_parent().rows - 1
 
 var has_turn = false 
 var is_grabbed = false
@@ -95,11 +93,11 @@ func get_current_position():
 	return coordinates * cell_size
 
 
-func get_position_for(coords): 
+func get_position_for(coords):  
 	return coords * cell_size
 
 
-func set_cell_size(size):
+func set_cell_size(size): 
 	cell_size = size
 	
 	
