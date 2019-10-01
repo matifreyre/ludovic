@@ -28,6 +28,10 @@ config/icon="res://icon.png"
 
 window/size/height=640
 
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
+
 [input]
 
 left_click={
