@@ -4,7 +4,7 @@ signal character_moved
 
 export(String, "Pato Pochoclero", "Payamédico") var character_name
 export(int, 2, 10) var max_column = 7
-export(int, 2, 10) var max_row = 5
+export(int, 2, 10) var max_row = 4
 export(int, 7) var initial_column = 0
 export(int, 5) var initial_row = 0
 export(float, 0, 1, 0.1) var transition_time = 0.5
