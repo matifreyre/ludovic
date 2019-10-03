@@ -27,7 +27,7 @@ func test_enemy_starts_on_bottom_right_corner_of_board_on_smaller_size():
 	assert_eq(enemy.coordinates, self.get_bottom_right_coordinates())
 
 
-func test_enemy_starts_on_bottom_right_corner_of_board_on_greater_size():
+func test_enemy_starts_on_bottom_right_corner_of_board_on_larger_size():
 	main.setup_board(10, 8)
 	self.add_child(main)
 	var enemy = main.get_node("Enemy")
