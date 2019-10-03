@@ -8,16 +8,39 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scripts/Character.gd"
+}, {
+"base": "Character",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://scripts/Enemy.gd"
+}, {
+"base": "Character",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/Player.gd"
+}, {
+"base": "Node2D",
+"class": "TurnQueue",
+"language": "GDScript",
+"path": "res://scripts/TurnQueue.gd"
+} ]
 _global_script_class_icons={
-
+"Character": "",
+"Enemy": "",
+"Player": "",
+"TurnQueue": ""
 }
 
 [application]
 
-config/name="Payamedicos"
-run/main_scene="res://Player.tscn"
-config/icon="res://icon.png"
+config/name="Payamédicos"
+run/main_scene="res://scenes/Main.tscn"
+config/icon="res://assets/icon.png"
 
 [display]
 

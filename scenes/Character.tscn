@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Character.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/icon.png-b6a7fb2db36edd3d95dc42f1dc8c1c5d.stex"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 64, 64 )
+
+[node name="Character" type="Node2D"]
+position = Vector2( 0, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+centered = false
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+position = Vector2( 64, 64 )
+shape = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]
