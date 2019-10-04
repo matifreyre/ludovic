@@ -32,23 +32,4 @@ func set_limits(character : Character) -> void:
 
 
 func adjust_to_board_config() -> void:
-	var new_cell_size := self.get_new_cell_size()
-	var change_ratio :  = self.get_change_ratio(cell_size, new_cell_size)
-	cell_size = new_cell_size
-	for character in characters:
-		self.set_display_size(character, new_cell_size, change_ratio)
-
-
-func get_new_cell_size() -> Vector2:
-	var viewport_size : = self.get_viewport_rect().size 
-	return Vector2( viewport_size.x / columns, viewport_size.y / rows)
-
-
-func get_change_ratio(old : Vector2, new : Vector2) -> Vector2:
-	return Vector2(new.x / old.x, new.y / old.y) 
-
-
-func set_display_size(character : Character, new_cell_size : Vector2, change_ratio : Vector2):
-	character.set_cell_size(new_cell_size)
-	var sprite : = character.get_node("Sprite")
-	sprite.scale = sprite.scale * change_ratio 
+	self.scale = Vector2( 8 / float(columns), 5 / float(rows) )
