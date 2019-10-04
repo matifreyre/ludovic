@@ -4,7 +4,7 @@ class_name Character
 
 signal character_moved
 
-export(String, "Pato", "Payamédico") var character_name
+export(String, "Pato Pochoclero", "Payamédico") var character_name
 export(int, 1, 9) var max_column = 7
 export(int, 1, 7) var max_row = 4
 export(int, 9) var initial_column = 0
