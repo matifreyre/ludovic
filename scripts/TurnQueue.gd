@@ -34,8 +34,14 @@ func set_state(new_state) -> void:
 # Se informa que el personaje alcanzó a otro 
 func _on_character_hit(character : Character) -> void:
 	if character == active_character:
-		state = State.GAME_OVER
+		self.terminate()
 		emit_signal("we_have_a_winner", character)
+
+
+func terminate() -> void:
+	state = State.GAME_OVER
+	$BackgroundMusic.stop()
+	$GameOverSound.play()
 
 
 # Una forma que se me ocurrió para "pausar" el juego, aunque como está sólo puede hacerse entre rondas.
