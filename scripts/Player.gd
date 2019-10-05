@@ -3,6 +3,8 @@ extends Character
 
 class_name Player
 
+const MESSAGE : = "You win!"
+
  
 # Movimiento con teclas
 func _physics_process(delta : float) -> void:

@@ -3,12 +3,14 @@ extends Character
 
 class_name Enemy
 
+const MESSAGE : = "You lose!"
+
 
 var random : = RandomNumberGenerator.new()
 enum Direction { UP, DOWN, RIGHT, LEFT } 
 
  
-func _ready():
+func _init() -> void:
 	random.randomize()
 
 

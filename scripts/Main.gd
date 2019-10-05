@@ -34,5 +34,11 @@ func set_limits(character : Character) -> void:
 	character.max_row = rows - 1
 
 
+# Se ajusta el tablero configurado al tamaño de la pantalla
 func adjust_scale_to_board_config() -> void:
 	self.scale = Vector2(DEFAULT_COLUMNS / float(columns), DEFAULT_ROWS / float(rows) ) 
+
+
+func _on_TurnQueue_we_have_a_winner(character : Character):
+	character.raise()	# El ganador queda dibujado por encima del otro
+	print(character.MESSAGE)	# y se muestra su mensaje

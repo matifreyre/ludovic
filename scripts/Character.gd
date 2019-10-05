@@ -3,6 +3,7 @@ extends Node2D
 class_name Character
 
 signal character_moved
+signal hit(Character)
 
 export(String, "Pato Pochoclero", "Payamédico") var character_name
 export(int, 1, 9) var max_column = 7
@@ -98,3 +99,8 @@ func transition_movement_to(new_position : Vector2) -> void:
 	$Tween.start()
 	yield($Tween, "tween_completed")	# espero a terminar la animación
 	emit_signal("character_moved")	# aviso que el personaje se movió
+
+
+# El personaje se está sobre otro
+func _on_Area_area_entered(area : Area2D) -> void:
+	emit_signal("hit", self)
