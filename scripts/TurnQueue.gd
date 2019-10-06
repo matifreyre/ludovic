@@ -44,12 +44,15 @@ func terminate() -> void:
 	$GameOverSound.play()
 
 
-# Una forma que se me ocurrió para "pausar" el juego, aunque como está sólo puede hacerse entre rondas.
-# Es para tener una idea de estados posibles y no porque fuera necesario.
+"""
+Una forma que se me ocurrió para "pausar" el juego, aunque como está sólo puede hacerse entre rondas.
+Es para tener una idea de estados posibles y no porque fuera necesario. 
+Hay un mecanismo built-in para pausar el juego, se puede investigar.
+"""
 func _physics_process(delta :  float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		match state:
 			State.ACTIVE:
-				state = State.PAUSED
+				self.set_state(State.PAUSED)
 			State.PAUSED:
-				state = State.ACTIVE
+				self.set_state(State.ACTIVE)
