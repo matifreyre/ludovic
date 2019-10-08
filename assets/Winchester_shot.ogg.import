@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Winchester_shot.ogg-d275b8e877f4ce381f66bf52618784ef.oggstr"
+
+[deps]
+
+source_file="res://assets/Winchester_shot.ogg"
+dest_files=[ "res://.import/Winchester_shot.ogg-d275b8e877f4ce381f66bf52618784ef.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
