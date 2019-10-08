@@ -2,6 +2,7 @@ extends Node2D
 
 class_name Character
 
+
 signal character_moved
 signal hit(Character)
 
@@ -17,6 +18,9 @@ onready var board: Board = get_node("../../RealBoard")
 var is_grabbed: = false
 
 
+"""
+Inicialización del personaje.
+"""
 func _ready() -> void: 
 	# Posición inicial de acuerdo a las coordenadas configuradas
 	$Pivot.position = board.cell_size / 2
@@ -24,12 +28,17 @@ func _ready() -> void:
 	set_process(false)
 
 
+"""
+Durante el drag and drop, la imagen se mueve junto con el mouse
+"""
 func _process(delta : float) -> void:
 	if is_grabbed:
 		self.set_global_position(get_global_mouse_position() - $Pivot.position)
 
 
-# Drag and drop
+"""
+Activación y desactivación del drag and drop
+"""
 func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : int) -> void:
 	if event.is_action_pressed("left_click"):
 		is_grabbed = true
@@ -38,31 +47,39 @@ func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : i
 		self.snap_position() 
 
  
-# Ajustar posición a grilla según tamaño de celda
+"""
+Ajustar posición a grilla según tamaño de celda.
+"""
 func snap_position() -> void:
 	self.set_position_for(self.get_coordinates())
 
 
-func set_position_for(_coordinates) -> void: 
-	position = board.map_to_world(_coordinates)
+"""
+Ajusta la posición del personaje según coordenadas del mapa.
+"""
+func set_position_for(coordinates: Vector2) -> void: 
+	position = board.map_to_world(coordinates)
 
 
-# Mover exactamente una celda en la dirección correspondiente.
+"""
+Mover el personaje a la celda destino solicitada.
+"""
 func move(target: Vector2) -> void:
 	set_process(false)
 	self.transition_movement_to(target)
 
 
-func bump() -> void:
-	pass
-
-
+"""
+Permite jugar exactamente un turno al personaje activando el process.
+"""
 func play_turn() -> void:
 	set_process(true)
 	yield(self, "character_moved")	# espero a que se mueva el personaje para terminar el turno
 
 
-# Uso Tween para que la transición no sea instantánea sino contínua
+"""
+Animar la transición a la nueva posición, esperando a que se complete y terminando el turno.
+"""
 func transition_movement_to(new_position: Vector2) -> void:
 	$Tween.interpolate_property(self, "position", position, new_position, 
 			transition_time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
@@ -71,11 +88,16 @@ func transition_movement_to(new_position: Vector2) -> void:
 	emit_signal("character_moved")	# aviso que el personaje se movió
 
 
-# El personaje está sobre otro
-func _on_Area_area_entered(x) -> void:
+"""
+Detección del overlap de un personaje con otro. 
+"""
+func _on_Area_area_entered(x: Area2D) -> void:
 	print("hit")
 	emit_signal("hit", self)
 
 
+"""
+Obtener coordenadas a partir de la posición actual.
+"""
 func get_coordinates() -> Vector2:
 	return board.world_to_map(position)

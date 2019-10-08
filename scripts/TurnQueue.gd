@@ -12,6 +12,9 @@ var active_character : Character
 var state : int = State.ACTIVE
 
 
+"""
+Jugar con los jugadores dados mientras no se termine el juego.
+"""
 func play(characters : Array) -> void:
 	while not state == State.GAME_OVER:
 		match state:
@@ -25,19 +28,26 @@ func play(characters : Array) -> void:
 				yield(self, "state_changed")
 
 
-# Permite quitar la pausa del juego
-func set_state(new_state) -> void:
+"""
+Permite modificar el estado del juego, incluyendo pausarlo y reanudarlo.
+"""
+func set_state(new_state: int) -> void:
 	state = new_state
 	emit_signal("state_changed")
 
 
-# Se informa que el personaje alcanzó a otro 
+"""
+Al tocar un personaje a otro, se anuncia al ganador según turno actual.
+"""
 func _on_character_hit(character : Character) -> void:
 	if character == active_character:
 		self.terminate()
 		emit_signal("we_have_a_winner", character)
 
 
+"""
+Finalizar el juego.
+"""
 func terminate() -> void:
 	state = State.GAME_OVER
 	$BackgroundMusic.stop()
@@ -45,7 +55,7 @@ func terminate() -> void:
 
 
 """
-Una forma que se me ocurrió para "pausar" el juego, aunque como está sólo puede hacerse entre rondas.
+Una forma que se me ocurrió para 'pausar' el juego, aunque como está sólo puede hacerse entre rondas.
 Es para tener una idea de estados posibles y no porque fuera necesario. 
 Hay un mecanismo built-in para pausar el juego, se puede investigar.
 """

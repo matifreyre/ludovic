@@ -12,11 +12,16 @@ var random : = RandomNumberGenerator.new()
 enum Direction { UP, DOWN, RIGHT, LEFT } 
 
  
+"""
+Inicializar el enemigo.
+"""
 func _init() -> void:
 	random.randomize()
 
 
-# Movimiento con teclas
+"""
+Realizar un movimiento automático.
+"""
 func _process(delta : float) -> void:
 	match self.get_movement():
 		Direction.DOWN:
@@ -29,11 +34,17 @@ func _process(delta : float) -> void:
 			self.validated_move(Vector2.LEFT) 
 
 
+"""
+Movimiento validado, debe quedar dentro del tablero.
+"""
 func validated_move(direction: Vector2) -> void:
 	var target_cell: Vector2 = board.request_move(self, direction)
 	if target_cell != null:
 		self.move(target_cell) 
 
 
+"""
+Generar el movimiento automático.
+"""
 func get_movement() -> int:
 	return random.randi_range(0,3)

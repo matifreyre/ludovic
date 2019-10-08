@@ -10,7 +10,9 @@ enum CELL_TYPES { EMPTY = -1, PLAYER, ENEMY }
 export(CELL_TYPES) var type = CELL_TYPES.PLAYER
 
  
-# Movimiento con teclas
+"""
+Escuchar input de usuario para procesar el turno del jugador.
+"""
 func _process(delta : float) -> void:
 	var input_direction = self.get_input_direction()
 	if input_direction:
@@ -21,6 +23,9 @@ func _process(delta : float) -> void:
 			self.bump()
 
 
+"""
+Leer la dirección de input según teclas presionadas.
+"""
 func get_input_direction() -> Vector2:
 	return Vector2(
 		int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left")),
@@ -28,5 +33,8 @@ func get_input_direction() -> Vector2:
 	)
 
 
-func bump():
+"""
+Acción realizada cuando el movimiento ingresado no es válido.
+"""
+func bump() -> void:
 	pass
