@@ -1,5 +1,5 @@
-#extends "res://addons/gut/test.gd"
-#
+extends "res://addons/gut/test.gd"
+
 #var Player: PackedScene = preload("res://scenes/characters/Player.tscn")
 #var Board: PackedScene = preload("res://scenes/Board.tscn")
 #var player: Node = Player.instance()
