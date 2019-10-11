@@ -7,6 +7,7 @@ enum { EMPTY = -1, PLAYER, ENEMY}
 var characters: Array
 var size: Vector2
 
+
 """
 Configuración de columnas y filas máximos del tablero
 """

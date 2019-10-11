@@ -13,6 +13,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 2 )
 }
 _run_on_load = true
+_should_maximize = true
 _yield_between_tests = false
 _directory1 = "res://test/integration"
 _directory2 = "res://test/unit"

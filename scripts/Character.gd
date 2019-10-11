@@ -14,16 +14,17 @@ export(int, 7) var initial_row = 0
 export(float, 0, 1, 0.1) var transition_time = 0.5
  
 onready var board: Board = get_node("../../RealBoard")
+onready var pivot: Position2D = get_node("Pivot")
 
 var is_grabbed: = false
 
 
 """
-Inicialización del personaje.
+Inicialización final del personaje.
 """
 func _ready() -> void: 
 	# Posición inicial de acuerdo a las coordenadas configuradas
-	$Pivot.position = board.cell_size / 2
+	pivot.position = board.cell_size / 2
 	self.set_position_for(Vector2(initial_column, initial_row))
 	set_process(false)
 
@@ -64,9 +65,11 @@ func set_position_for(coordinates: Vector2) -> void:
 """
 Mover el personaje a la celda destino solicitada.
 """
-func move(target: Vector2) -> void:
-	set_process(false)
-	self.transition_movement_to(target)
+# Puede recibir null y no debe moverse en ese caso
+func move(target) -> void:
+	if target != null:
+		set_process(false)
+		self.transition_movement_to(target)
 
 
 """
@@ -92,7 +95,6 @@ func transition_movement_to(new_position: Vector2) -> void:
 Detección del overlap de un personaje con otro. 
 """
 func _on_Area_area_entered(x: Area2D) -> void:
-	print("hit")
 	emit_signal("hit", self)
 
 
@@ -100,4 +102,5 @@ func _on_Area_area_entered(x: Area2D) -> void:
 Obtener coordenadas a partir de la posición actual.
 """
 func get_coordinates() -> Vector2:
-	return board.world_to_map(position)
+	var coordinates = board.world_to_map(position)
+	return coordinates

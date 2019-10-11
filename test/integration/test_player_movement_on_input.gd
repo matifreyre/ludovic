@@ -1,16 +1,17 @@
-extends "res://addons/gut/test.gd"
-
-var player_scene : = preload('res://scenes/characters/Player.tscn')
-var player : Node
-
-func before_each() -> void:
-	player = player_scene.instance()
-	self.add_child(player)
-
-
-""" Tests """
-
-
-func test_cell_size_is_squared() -> void:
-	assert_eq(player.cell_size.x, player.cell_size.y)
-	assert_gt(player.cell_size.abs(), Vector2(0,0))
+#extends "res://addons/gut/test.gd"
+#
+#var Player: PackedScene = preload("res://scenes/characters/Player.tscn")
+#var Board: PackedScene = preload("res://scenes/Board.tscn")
+#var player: Node = Player.instance()
+#var board: Node = Board.instance()
+#
+#func before_each() -> void:
+#	self.add_child(player) 
+#
+#
+#""" Tests """
+#
+#
+#func test_cell_size_is_squared() -> void:
+#	assert_eq(board.cell_size.x, board.cell_size.y)
+#	assert_gt(board.cell_size, Vector2(0,0))
