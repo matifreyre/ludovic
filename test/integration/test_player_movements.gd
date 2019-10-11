@@ -3,7 +3,7 @@ extends "res://addons/gut/test.gd"
 var Main: PackedScene = preload("res://scenes/Main.tscn")
 var Player: = preload("res://scripts/Player.gd") 
 var Board: = preload("res://scripts/Board.gd")
-var main: Node = Main.instance()
+var main: Node
 var player: Player
 var board: Board 
 var viewport_size: Vector2
