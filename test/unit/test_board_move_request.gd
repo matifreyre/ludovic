@@ -11,6 +11,8 @@ const CELL_SIZE : = Vector2(128, 128)
 class MockCharacter:
 	extends Character
 	
+	var type = EMPTY
+	
 	var coordinates: = Vector2.ZERO setget set_coordinates, get_coordinates
 	
 	func set_coordinates(_coordinates):

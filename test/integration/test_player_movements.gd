@@ -29,39 +29,34 @@ func test_player_starts_on_upper_left_corner() -> void:
 
 
 func test_players_next_position_down_from_origin() -> void:
-	var next_position = board.request_move(player, Vector2.DOWN)
-	player.move(next_position)
+	self.move_player(Vector2.DOWN)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position.x, 0)
 	assert_eq(player.position.y, CELL_SIZE.y) 
 
 
 func test_players_next_position_right_from_origin() -> void:
-	var next_position = board.request_move(player, Vector2.RIGHT)
-	player.move(next_position)
+	self.move_player(Vector2.RIGHT)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position.x, CELL_SIZE.x)
 	assert_eq(player.position.y, 0)
 
 
 func test_players_next_position_left_from_origin_is_origin() -> void:
-	var next_position = board.request_move(player, Vector2.LEFT)
-	player.move(next_position)
+	self.move_player(Vector2.LEFT)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position, ORIGIN)
 
 
 func test_players_next_position_up_from_origin_is_origin() -> void:
-	var next_position = board.request_move(player, Vector2.UP)
-	player.move(next_position)
+	self.move_player(Vector2.UP)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position, ORIGIN)
 
 
 func test_players_next_position_left_when_not_in_origin() -> void:
 	player.position = board.map_to_world(Vector2(2,2))
-	var next_position = board.request_move(player, Vector2.LEFT)
-	player.move(next_position)
+	self.move_player(Vector2.LEFT)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position.x, 20 - CELL_SIZE.x)
 	assert_eq(player.position.y, 20)
@@ -69,8 +64,7 @@ func test_players_next_position_left_when_not_in_origin() -> void:
 
 func test_players_next_position_up_when_not_in_origin() -> void:
 	player.position = board.map_to_world(Vector2(2,2))
-	var next_position = board.request_move(player, Vector2.UP)
-	player.move(next_position)
+	self.move_player(Vector2.UP)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position.x, 20)
 	assert_eq(player.position.y, 20 - CELL_SIZE.y)
@@ -78,15 +72,21 @@ func test_players_next_position_up_when_not_in_origin() -> void:
 
 func test_players_next_position_right_when_on_rightmost_cell() -> void:
 	player.position = board.map_to_world(board.size)
-	var next_position = board.request_move(player, Vector2.RIGHT)
-	player.move(next_position)
+	self.move_player(Vector2.RIGHT)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position, board.size * CELL_SIZE)
 
 
 func test_players_next_position_down_when_on_lowest_cell() -> void:
 	player.position = board.map_to_world(board.size)
-	var next_position = board.request_move(player, Vector2.DOWN)
-	player.move(next_position)
+	self.move_player(Vector2.DOWN)
 	yield(yield_to(player, "character_moved", 1), YIELD)
 	assert_eq(player.position, board.size * CELL_SIZE)
+
+
+""" Auxiliares """
+
+
+func move_player(direction):
+	var next_position = board.request_move(player, direction)
+	player.move(next_position)

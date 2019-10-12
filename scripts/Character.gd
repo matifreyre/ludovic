@@ -34,7 +34,7 @@ Durante el drag and drop, la imagen se mueve junto con el mouse
 """
 func _process(delta : float) -> void:
 	if is_grabbed:
-		self.set_global_position(get_global_mouse_position() - $Pivot.position)
+		position = get_global_mouse_position() - $Pivot.position
 
 
 """
@@ -52,7 +52,9 @@ func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : i
 Ajustar posición a grilla según tamaño de celda.
 """
 func snap_position() -> void:
-	self.set_position_for(self.get_coordinates())
+	# El juego de ir con la posición world -> map -> world hace el snapping	
+	var coordinates = board.world_to_map(position + $Pivot.position)
+	self.set_position_for(coordinates)
 
 
 """
