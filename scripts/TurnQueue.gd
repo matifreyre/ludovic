@@ -32,8 +32,11 @@ func set_state(new_state) -> void:
 
 
 # Se informa que el personaje alcanzó a otro 
+# Así como está no termina el juego si tirás al jugador en la 
+# misma celda en la que está el enemigo, pero se evita que termine
+# sólo por hoverear
 func _on_character_hit(character : Character) -> void:
-	if character == active_character:
+	if character == active_character && !character.is_grabbed:
 		self.terminate()
 		emit_signal("we_have_a_winner", character)
 
