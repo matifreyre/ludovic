@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Dungeon_Battle_1_Mummies.ogg-d2eaa9508672caad390c3aaf7a1f57f9.oggstr"
+
+[deps]
+
+source_file="res://assets/Dungeon_Battle_1_Mummies.ogg"
+dest_files=[ "res://.import/Dungeon_Battle_1_Mummies.ogg-d2eaa9508672caad390c3aaf7a1f57f9.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

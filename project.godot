@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "TileMap",
+"class": "Board",
+"language": "GDScript",
+"path": "res://scripts/Board.gd"
+}, {
 "base": "Node2D",
 "class": "Character",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://scripts/TurnQueue.gd"
 } ]
 _global_script_class_icons={
+"Board": "",
 "Character": "",
 "Enemy": "",
 "Player": "",
