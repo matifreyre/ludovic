@@ -34,7 +34,7 @@ z_index = 1
 character_name = "Payamédico"
 initial_column = 7
 initial_row = 4
-[connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
 [connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
+[connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
 [connection signal="hit" from="Characters/Player" to="TurnQueue" method="_on_character_hit"]
 [connection signal="hit" from="Characters/Enemy" to="TurnQueue" method="_on_character_hit"]
