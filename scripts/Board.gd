@@ -20,8 +20,9 @@ func _ready() -> void:
 
 
 func set_character_cells() -> void:
-	for character in characters:
-		set_cellv(world_to_map(character.position), character.type)
+	pass
+#	for character in characters:
+#		set_cellv(world_to_map(character.position), character.type)
 
 
 """
@@ -46,8 +47,8 @@ Actualizar el estado del tablero cuando haya otros elementos además de los pers
 """
 # character no tipado para evitar referencia cíclica en los scripts
 func updated_character_position(character, cell_start: Vector2, cell_target: Vector2) -> Vector2:
-	set_cellv(cell_target, character.type)
-	set_cellv(cell_start, EMPTY)
+#	set_cellv(cell_target, character.type)
+#	set_cellv(cell_start, EMPTY)
 	return map_to_world(cell_target)
 
 
