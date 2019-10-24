@@ -13,8 +13,8 @@ export(int, 9) var initial_column = 0
 export(int, 7) var initial_row = 0
 export(float, 0, 1, 0.1) var transition_time = 0.5
  
-onready var board: Board = get_node("../../RealBoard")
-onready var pivot: Position2D = get_node("Pivot")
+onready var board: Board = get_parent()
+onready var pivot: Position2D = $Pivot
 
 var is_grabbed: = false
 
@@ -24,7 +24,7 @@ Inicialización final del personaje.
 """
 func _ready() -> void: 
 	# Posición inicial de acuerdo a las coordenadas configuradas
-	pivot.position = board.cell_size / 2
+	pivot.position = Vector2(0, board.cell_size.y / 2)
 	self.set_position_for(Vector2(initial_column, initial_row))
 	set_process(false)
 
@@ -34,7 +34,7 @@ Durante el drag and drop, la imagen se mueve junto con el mouse
 """
 func _process(delta : float) -> void:
 	if is_grabbed:
-		position = get_global_mouse_position() - $Pivot.position
+		position = get_global_mouse_position() - pivot.position
 
 
 """
@@ -53,7 +53,7 @@ Ajustar posición a grilla según tamaño de celda.
 """
 func snap_position() -> void:
 	# El juego de ir con la posición world -> map -> world hace el snapping	
-	var coordinates = board.world_to_map(position + $Pivot.position)
+	var coordinates = board.world_to_map(position + pivot.position)
 	self.set_position_for(coordinates)
 
 
