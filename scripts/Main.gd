@@ -44,8 +44,6 @@ Inicializar el tablero.
 func initialize_board() -> void:
 	board.characters = [player, enemy]
 	board.set_size(columns, rows)
-	for character in board.characters:
-		character.scale = Vector2.ONE / 2
 	self.adjust_viewport_to_board_config()
 
 
