@@ -6,7 +6,7 @@ class_name Character
 signal character_moved
 signal hit(Character)
 
-enum { EMPTY = -1, PLAYER, ENEMY}
+enum { EMPTY = -1, PLAYER, ENEMY, OBSTACLE}
 
 export(String, "Pato Pochoclero", "Payamédico") var character_name
 export(int, 9) var initial_column = 0
