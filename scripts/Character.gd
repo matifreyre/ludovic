@@ -5,6 +5,7 @@ class_name Character
 
 signal character_moved
 signal hit(Character)
+signal clicked(Character)
 
 enum { EMPTY = -1, PLAYER, ENEMY, OBSTACLE}
 
@@ -46,6 +47,8 @@ func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : i
 	if event.is_action_released("left_click"):
 		is_grabbed = false
 		self.snap_position() 
+	if event.is_action_released("right_click"):
+		emit_signal("clicked", self)
 
  
 """
