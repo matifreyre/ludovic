@@ -39,14 +39,21 @@ func _process(delta : float) -> void:
 
 
 """
+Al liberar el mouse, incluso si no es sobre el área, se debe soltar el jugador.
+"""
+func _input(event: InputEvent) -> void:
+	if is_grabbed and event.is_action_released("left_click"):
+		is_grabbed = false
+		self.snap_position() 
+
+
+
+"""
 Activación y desactivación del drag and drop
 """
 func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : int) -> void:
 	if event.is_action_pressed("left_click"):
 		is_grabbed = true
-	if event.is_action_released("left_click"):
-		is_grabbed = false
-		self.snap_position() 
 
 
  
