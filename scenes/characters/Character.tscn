@@ -18,13 +18,12 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Pivot" type="Position2D" parent="."]
+position = Vector2( 0, -32 )
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
 texture = SubResource( 1 )
-offset = Vector2( 0, -32 )
 
 [node name="Area" type="Area2D" parent="Pivot"]
-position = Vector2( 0, -32 )
 
 [node name="Collision" type="CollisionShape2D" parent="Pivot/Area"]
 shape = SubResource( 2 )

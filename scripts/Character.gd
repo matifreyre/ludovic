@@ -34,7 +34,8 @@ Durante el drag and drop, la imagen se mueve junto con el mouse
 """
 func _process(delta : float) -> void:
 	if is_grabbed:
-		position = get_global_mouse_position() - pivot.position
+		position = get_global_mouse_position() - board.position - pivot.position * 1.5
+
 
 
 """
@@ -46,6 +47,7 @@ func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : i
 	if event.is_action_released("left_click"):
 		is_grabbed = false
 		self.snap_position() 
+
 
  
 """
@@ -96,7 +98,7 @@ func transition_movement_to(new_position: Vector2) -> void:
 """
 Detección del overlap de un personaje con otro. 
 """
-func _on_Area_area_entered(x: Area2D) -> void:
+func _on_Area_area_entered(area: Area2D) -> void:
 	emit_signal("hit", self)
 
 
