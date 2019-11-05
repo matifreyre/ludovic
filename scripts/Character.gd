@@ -34,7 +34,7 @@ Durante el drag and drop, la imagen se mueve junto con el mouse
 """
 func _process(delta : float) -> void:
 	if is_grabbed:
-		position = get_global_mouse_position() - board.position - pivot.position * 1.5
+		position = get_global_mouse_position() - board.position - pivot.position
 
 
 
