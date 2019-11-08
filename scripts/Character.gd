@@ -12,6 +12,8 @@ export(String, "Pato Pochoclero", "Payamédico") var character_name
 export(int, 9) var initial_column = 0
 export(int, 7) var initial_row = 0
 export(float, 0, 1, 0.1) var transition_time = 0.5
+export(int, 0, 3) var movement_reach = 2
+export(Color) var highlight_color
  
 onready var board: Board = get_parent()
 onready var pivot: Position2D = $Pivot
@@ -37,30 +39,36 @@ func _process(delta : float) -> void:
 		position = get_global_mouse_position() - board.position - pivot.position
 
 
-
 """
-Al liberar el mouse, incluso si no es sobre el área, se debe soltar el jugador.
+Al liberar el botón del mouse, incluso si no es sobre el área, se debe soltar el jugador.
 """
 func _input(event: InputEvent) -> void:
 	if is_grabbed and event.is_action_released("left_click"):
 		is_grabbed = false
 		self.snap_position() 
-
+		update()
 
 
 """
-Activación y desactivación del drag and drop
+Activación del drag and drop
 """
 func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : int) -> void:
 	if event.is_action_pressed("left_click"):
 		is_grabbed = true
+		self.request_movement_area_display()
 
 
- 
+"""
+Pedido al tablero de resaltar celdas dentro del área de alcance de movimiento.
+"""
+func request_movement_area_display():
+	board.highlight_cells_within_reach(self.get_coordinates(), self.movement_reach, self.highlight_color)
+
+
 """
 Ajustar posición a grilla según tamaño de celda.
 """
-func snap_position() -> void:
+func snap_position() -> void: 
 	# El juego de ir con la posición world -> map -> world hace el snapping	
 	var coordinates = board.world_to_map(position + pivot.position)
 	self.set_position_for(coordinates)
