@@ -3,6 +3,8 @@ extends HBoxContainer
 onready var tween = $Tween
 # Si no nos toca accionar se grisan las acciones
 var active = false
+const inactive_color : Color = Color(1.0, 1.0, 1.0, 0.0)
+const active_color : Color = Color(1.0, 1.0, 1.0, 1.0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,12 +16,11 @@ func player_clicked(player):
 	
 func become_active():
 	active = true
-	var end_color = Color(1.0, 1.0, 1.0, 1.0)
-	var start_color = Color(1.0, 1.0, 1.0, 0.0)
-	tween.interpolate_property(self, "modulate", start_color, end_color, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.interpolate_property(self, "modulate", 
+		inactive_color, active_color, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	
 func become_inactive():
 	active = false
-	var start_color = Color(1.0, 1.0, 1.0, 1.0)
-	var end_color = Color(1.0, 1.0, 1.0, 0.0)
-	tween.interpolate_property(self, "modulate", start_color, end_color, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.interpolate_property(self, "modulate", 
+		active_color, inactive_color, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
