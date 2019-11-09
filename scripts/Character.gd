@@ -6,6 +6,7 @@ class_name Character
 signal character_moved
 signal hit(Character)
 signal clicked(Character)
+signal target_selection(Character, targets)
 
 enum { EMPTY = -1, PLAYER, ENEMY, OBSTACLE}
 
@@ -109,3 +110,16 @@ Obtener coordenadas a partir de la posición actual.
 func get_coordinates() -> Vector2:
 	var coordinates = board.world_to_map(position)
 	return coordinates
+	
+"""
+Debería seleccionarse alguno de los targets, 
+no sé cómo ni dónde?
+"""
+func attack_requested():
+	emit_signal("target_selection", self, 
+				board.possible_targets(self))
+	"""Dejo estoy acá de momento"""
+	attack(board.possible_targets(self)[0])
+	
+func attack(target : Character) -> void:
+	pass

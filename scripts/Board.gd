@@ -47,3 +47,9 @@ Verificar que las nuevas coordanadas no se salgan del tablero
 """
 func is_out_of_bounds(cell: Vector2) -> bool:
 	return cell.x < 0 or cell.x > size.x or cell.y < 0 or cell.y > size.y
+
+
+func possible_targets(character) -> Array :
+	var targets = self.characters.duplicate()
+	targets.remove(targets.find(character))
+	return targets
