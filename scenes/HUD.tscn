@@ -28,6 +28,6 @@ margin_bottom = 640.0
 alignment = 2
 
 [node name="Acciones" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 585.0
+margin_top = 586.0
 margin_right = 140.0
 margin_bottom = 640.0
