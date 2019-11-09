@@ -10,4 +10,4 @@ func _on_TurnQueue_we_have_a_winner(character: Character):
 
 
 func _on_Player_clicked(player : Player):
-	pass
+	player.attack_requested()
