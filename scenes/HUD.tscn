@@ -18,16 +18,16 @@ margin_bottom = -27.0
 custom_fonts/font = SubResource( 1 )
 align = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Menu" type="MarginContainer" parent="."]
 anchor_bottom = 1.0
 margin_right = 140.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Bottom" type="VBoxContainer" parent="Menu"]
 margin_right = 140.0
 margin_bottom = 640.0
 alignment = 2
 
-[node name="Acciones" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Actions" parent="Menu/Bottom" instance=ExtResource( 2 )]
 margin_top = 592.0
 margin_right = 140.0
 margin_bottom = 640.0
