@@ -110,6 +110,16 @@ func is_valid_coordinate(cell: Vector2) -> bool:
 
 
 """
+Conjunto de celdas alcanzables deben estar.
+"""
+func is_valid_destination(target: Vector2) -> bool:
+	for shape in highlight_shapes:
+		if self.world_to_map(shape[0]) == target:
+			return true
+	return false
+
+
+"""
 Resaltar las celdas dentro de un rango de movimientos.
 """
 func highlight_cells_within_reach(coordinates: Vector2, moves: int, color: Color):
@@ -182,6 +192,10 @@ Verificar que las nuevas coordanadas no se salgan del tablero
 func is_out_of_bounds(cell: Vector2) -> bool:
 	return not cell.x in range(0, size.x) or not cell.y in range(0, size.y)
 
+
+"""
+Eliminar casilleros resaltados
+"""
 func _on_child_character_dropped() -> void:
 	highlight_shapes.clear()
 	update()

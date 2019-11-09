@@ -20,6 +20,7 @@ onready var board: Board = get_parent()
 onready var pivot: Position2D = $Pivot
 
 var is_grabbed: = false
+var position_backup: Vector2
 
 
 """
@@ -46,16 +47,20 @@ Al liberar el botón del mouse, incluso si no es sobre el área, se debe soltar 
 func _input(event: InputEvent) -> void:
 	if is_grabbed and event.is_action_released("left_click"):
 		is_grabbed = false
-		self.snap_position() 
+		self.snap_position()
+		if not board.is_valid_destination(board.world_to_map(position)):
+			position = position_backup
+			position_backup
 		emit_signal("character_dropped")
 
 
 """
 Activación del drag and drop
 """
-func _on_Area_input_event(viewport : Viewport, event : InputEvent, shape_idx : int) -> void:
+func _on_Area_input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("left_click"):
 		is_grabbed = true
+		position_backup = self.position
 		self.request_movement_area_display()
 
 
@@ -122,5 +127,4 @@ func _on_Area_area_entered(area: Area2D) -> void:
 Obtener coordenadas a partir de la posición actual.
 """
 func get_coordinates() -> Vector2:
-	var coordinates = board.world_to_map(position)
-	return coordinates
+	return board.world_to_map(position)

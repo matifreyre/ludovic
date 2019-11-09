@@ -29,7 +29,6 @@ func _ready() -> void:
 	$TurnQueue.play(board.characters)
 
 
-
 """
 Ajuste del tablero configurado al tamaño de la pantalla.
 """
