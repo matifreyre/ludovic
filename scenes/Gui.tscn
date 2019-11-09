@@ -14,12 +14,11 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 220.0
+margin_right = 160.0
 margin_bottom = 620.0
 alignment = 2
 
 [node name="Acciones" parent="GUI/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 520.0
-margin_right = 200.0
+margin_top = 550.0
+margin_right = 140.0
 margin_bottom = 600.0
-alignment = 0
