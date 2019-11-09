@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.jpg" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/tileset.tres" type="TileSet" id=7]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/characters/Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Gui.tscn" type="PackedScene" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,6 +25,7 @@ centered = false
 script = ExtResource( 5 )
 
 [node name="Board" parent="." instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( 416, 128 )
 mode = 1
 tile_set = ExtResource( 7 )
@@ -41,8 +43,9 @@ z_index = 1
 character_name = "Payamédico"
 initial_column = 7
 initial_row = 4
-[connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
+
+[node name="Menu" parent="." instance=ExtResource( 10 )]
 [connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
-[connection signal="clicked" from="Board/Player" to="HUD" method="_on_Player_clicked"]
+[connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
 [connection signal="hit" from="Board/Player" to="TurnQueue" method="_on_character_hit"]
 [connection signal="hit" from="Board/Enemy" to="TurnQueue" method="_on_character_hit"]
