@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/character.png" type="Texture" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 32, 16, 0, 32, -32, 16 )
+points = PoolVector2Array( 0, 0, -32, -16, 0, -32, 32, -16 )
 
 [node name="Character" type="Node2D"]
 script = ExtResource( 1 )
@@ -17,13 +17,11 @@ __meta__ = {
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -25.781 )
-scale = Vector2( 0.6875, 0.6875 )
+position = Vector2( 0, -32 )
+scale = Vector2( 0.64, 0.64 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -32 )
 
 [node name="Area" type="Area2D" parent="Pivot"]
-position = Vector2( 0, -32 )
 
 [node name="Collision" type="CollisionShape2D" parent="Pivot/Area"]
 shape = SubResource( 1 )
