@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.jpg" type="Texture" id=2]
-[ext_resource path="res://scenes/TurnQueue.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/HUD.gd" type="Script" id=5]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/HUD.gd" type="Script" id=4]
+[ext_resource path="res://scenes/TurnQueue.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Board.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/tileset.tres" type="TileSet" id=7]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=8]
@@ -19,10 +19,10 @@ scale = Vector2( 1.21009, 1.39792 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="TurnQueue" parent="." instance=ExtResource( 3 )]
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 4 )
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
-script = ExtResource( 5 )
+[node name="TurnQueue" parent="." instance=ExtResource( 5 )]
 
 [node name="Board" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
