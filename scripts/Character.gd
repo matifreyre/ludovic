@@ -5,6 +5,7 @@ class_name Character
 
 signal character_moved
 signal hit(Character)
+signal character_dropped
 
 enum { EMPTY = -1, PLAYER, ENEMY, OBSTACLE}
 
@@ -13,7 +14,7 @@ export(int, 9) var initial_column = 0
 export(int, 7) var initial_row = 0
 export(float, 0, 1, 0.1) var transition_time = 0.5
 export(int, 0, 3) var movement_reach = 2
-export(Color) var highlight_color
+export(Color) var highlight_color = ColorN("Green")
  
 onready var board: Board = get_parent()
 onready var pivot: Position2D = $Pivot
@@ -46,7 +47,7 @@ func _input(event: InputEvent) -> void:
 	if is_grabbed and event.is_action_released("left_click"):
 		is_grabbed = false
 		self.snap_position() 
-		update()
+		emit_signal("character_dropped")
 
 
 """

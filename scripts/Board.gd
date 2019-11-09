@@ -11,6 +11,14 @@ var highlight_shapes: Array = []
 
 
 """
+Eliminar el highlight cuando se suelta al jugador.
+"""
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("left_click"):
+		update()
+
+
+"""
 Configuración de columnas y filas máximos del tablero
 """
 func set_size(columns: int, rows: int) -> void:
@@ -26,6 +34,7 @@ func setup_paths() -> void:
 	for x in range(size.x):
 		for y in range (size.y):
 			self.add_point(x,y)
+			
 
 """
 Agrega un punto en la ubicación dada y lo conecta con sus vecinos.
@@ -84,11 +93,20 @@ func get_reachable_cell_ids(coordinates: Vector2, moves: int) -> Array:
 	for x in range(-moves, moves + 1):
 		for y in range(-moves, moves + 1):
 			var target: = Vector2(coordinates.x + x, coordinates.y + y)
+			if not self.is_valid_coordinate(target):
+				continue
 			var path: = self.get_path_between_cells(coordinates, target)
 			var path_moves: = path.size()
 			if path_moves > 0 and path_moves <= moves:
 				result.append(self.get_pos_point_id(target))
 	return result
+
+
+"""
+Conjunto de celdas dentro del aclance desde una posición dada en un máximo de N movimientos.
+"""
+func is_valid_coordinate(cell: Vector2) -> bool:
+	return cell.x in range(0, size.x) and cell.y in range(0, size.y)
 
 
 """
@@ -109,12 +127,8 @@ func highlight_cell(cell_id: int, color: Color):
 	var position3d = aStar.get_point_position(cell_id)
 	var position2d = map_to_world(Vector2(position3d.x, position3d.y))
 	var transparent_color = color
-	transparent_color.a = 0.3       # aplicar factor de transparencia
-	highlight_shapes.append([self.get_shape(position2d, cell_size), transparent_color])      # [shape, color]
-
-
-func get_shape(position2d: Vector2, cell_size: Vector2) -> Polygon2D:
-	return new Polygon2D([], [])
+	transparent_color.a = 0.6       # aplicar factor de transparencia
+	highlight_shapes.append([position2d, cell_size.y / 2, transparent_color])      # [shape, color]
 
 
 """
@@ -122,7 +136,7 @@ Todos los resaltados
 """
 func _draw():
 	for highlight in highlight_shapes:
-		self.draw_rect(highlight[0], highlight[1])      # [shape, color]
+		self.draw_circle(highlight[0], highlight[1], highlight[2])      # [position, radius, color]
 
 
 """
@@ -167,3 +181,7 @@ Verificar que las nuevas coordanadas no se salgan del tablero
 """
 func is_out_of_bounds(cell: Vector2) -> bool:
 	return not cell.x in range(0, size.x) or not cell.y in range(0, size.y)
+
+func _on_child_character_dropped() -> void:
+	highlight_shapes.clear()
+	update()
