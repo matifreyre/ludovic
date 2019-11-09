@@ -45,7 +45,6 @@ custom_constants/margin_left = 5
 [node name="fondo" type="NinePatchRect" parent="MarginContainer/HBoxContainer/caminar"]
 margin_left = 5.0
 margin_top = 3.0
-margin_right = 53.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 texture = ExtResource( 2 )
@@ -75,22 +74,23 @@ custom_constants/margin_left = 5
 
 [node name="fondo" type="NinePatchRect" parent="MarginContainer/HBoxContainer/atacar"]
 margin_left = 5.0
-margin_top = 3.0
-margin_right = 53.0
+margin_top = 2.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 texture = ExtResource( 2 )
 
 [node name="accion" type="NinePatchRect" parent="MarginContainer/HBoxContainer/atacar/fondo"]
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 texture = ExtResource( 5 )
 
 [node name="shortcut" type="Label" parent="MarginContainer/HBoxContainer/atacar/fondo"]
-margin_right = 40.0
+margin_right = 43.0
 margin_bottom = 45.0
-rect_min_size = Vector2( 43, 45 )
+rect_min_size = Vector2( 40, 40 )
 custom_fonts/font = SubResource( 1 )
 text = "A"
 align = 2
