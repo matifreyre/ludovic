@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/character-down.png" type="Texture" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 32, 16, 0, 32, -32, 16 )
+points = PoolVector2Array( 0, 0, -32, -16, 0, -32, 32, -16 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -40,8 +40,13 @@ __meta__ = {
 
 [node name="Pivot" type="Position2D" parent="."]
 
-[node name="Area" type="Area2D" parent="Pivot"]
+
+[node name="Sprite" type="Sprite" parent="Pivot"]
 position = Vector2( 0, -32 )
+scale = Vector2( 0.64, 0.64 )
+texture = ExtResource( 2 )
+
+[node name="Area" type="Area2D" parent="Pivot"]
 
 [node name="Collision" type="CollisionShape2D" parent="Pivot/Area"]
 shape = SubResource( 1 )
