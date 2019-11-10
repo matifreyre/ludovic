@@ -80,8 +80,6 @@ Actualiza los sprites.
 func update_sprite(target:Vector2) -> void:
 	var current = get_coordinates()
 	var t = board.world_to_map(target)
-	print(t)
-	print(current)
 	if (t.y > current.y):
 		$Pivot/AnimatedSprite.play("down")
 		return
