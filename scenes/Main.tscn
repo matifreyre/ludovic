@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.jpg" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/tileset.tres" type="TileSet" id=7]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/characters/Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -42,11 +43,22 @@ z_index = 1
 character_name = "Payamédico"
 initial_column = 7
 initial_row = 4
-[connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+editor/display_folded = true
+anchor_mode = 0
+current = true
+script = ExtResource( 10 )
+
+[node name="ShakeTimer" type="Timer" parent="Camera2D"]
+one_shot = true
 [connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
+[connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
+[connection signal="bump" from="Board/Player" to="Camera2D" method="_on_Player_bump"]
 [connection signal="character_dropped" from="Board/Player" to="Board" method="_on_child_character_dropped"]
 [connection signal="hit" from="Board/Player" to="TurnQueue" method="_on_character_hit"]
 [connection signal="character_dropped" from="Board/Enemy" to="Board" method="_on_child_character_dropped"]
 [connection signal="hit" from="Board/Enemy" to="TurnQueue" method="_on_character_hit"]
+[connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_ShakeTimer_timeout"]
 
 [editable path="Board"]

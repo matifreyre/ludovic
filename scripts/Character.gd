@@ -48,9 +48,12 @@ func _input(event: InputEvent) -> void:
 	if is_grabbed and event.is_action_released("left_click"):
 		is_grabbed = false
 		self.snap_position()
-		if not board.is_valid_destination(board.world_to_map(position)):
+		if board.is_valid_destination(board.world_to_map(position)):
+			emit_signal("character_moved")
+		else:
 			position = position_backup
 			position_backup
+			self.bump()
 		emit_signal("character_dropped")
 
 
@@ -128,3 +131,7 @@ Obtener coordenadas a partir de la posición actual.
 """
 func get_coordinates() -> Vector2:
 	return board.world_to_map(position)
+
+
+func bump() -> void:
+	pass 

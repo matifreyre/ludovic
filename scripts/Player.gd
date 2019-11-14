@@ -3,6 +3,8 @@ extends Character
 class_name Player
 
 
+signal bump
+
 const MESSAGE : = "You win!"
 
 enum CELL_TYPES { EMPTY = -1, PLAYER, ENEMY }
@@ -37,4 +39,4 @@ func get_input_direction() -> Vector2:
 Acción realizada cuando el movimiento ingresado no es válido.
 """
 func bump() -> void:
-	pass
+	emit_signal("bump")
