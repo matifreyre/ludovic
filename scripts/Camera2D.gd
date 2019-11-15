@@ -15,6 +15,9 @@ func _process(delta: float) -> void:
 		self.shake()	
 
 
+"""
+Configurar el timer de acuerdo a la configuración de la cámara.
+"""
 func _ready() -> void:
 	shake_timer.wait_time = shake_time
 
@@ -32,9 +35,9 @@ un efecto de vibración.
 """
 func shake() -> void:
 	self.set_offset(Vector2( \
-        rand_range(-1.0, 1.0) * shake_amount, \
-        rand_range(-1.0, 1.0) * shake_amount \
-    ))
+		rand_range(-1.0, 1.0) * shake_amount, \
+		rand_range(-1.0, 1.0) * shake_amount \
+	))
 
 
 """

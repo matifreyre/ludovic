@@ -36,7 +36,7 @@ func _ready() -> void:
 """
 Durante el drag and drop, la imagen se mueve junto con el mouse
 """
-func _process(delta : float) -> void:
+func _process(delta: float) -> void:
 	if is_grabbed:
 		position = get_global_mouse_position() - board.position - pivot.position
 
@@ -46,15 +46,7 @@ Al liberar el botón del mouse, incluso si no es sobre el área, se debe soltar 
 """
 func _input(event: InputEvent) -> void:
 	if is_grabbed and event.is_action_released("left_click"):
-		is_grabbed = false
-		self.snap_position()
-		if board.is_valid_destination(board.world_to_map(position)):
-			emit_signal("character_moved")
-		else:
-			position = position_backup
-			position_backup
-			self.bump()
-		emit_signal("character_dropped")
+		self.perform_drop()
 
 
 """
@@ -62,9 +54,7 @@ Activación del drag and drop
 """
 func _on_Area_input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("left_click"):
-		is_grabbed = true
-		position_backup = self.position
-		self.request_movement_area_display()
+		self.start_drag()
 
 
 """
@@ -133,5 +123,35 @@ func get_coordinates() -> Vector2:
 	return board.world_to_map(position)
 
 
+"""
+Comienzo de movimiento del personaje por drag and drop.
+"""
+func start_drag() -> void:
+	is_grabbed = true
+	position_backup = self.position
+	self.request_movement_area_display()
+
+
+"""
+Acciones al soltar al personaje.
+"""
+func perform_drop() -> void:
+	is_grabbed = false
+	self.snap_position()
+	if board.is_valid_destination(board.world_to_map(position)):
+#			La señal se dispara antes del drop y no se procesa por is_grabbed,
+#			por lo tanto, reviso si hay overlaps y disparo de nuevo si es así.
+		if not $Pivot/Area.get_overlapping_areas().empty():
+			emit_signal("hit", self)
+		emit_signal("character_moved")
+	else:
+		position = position_backup
+		self.bump()
+	emit_signal("character_dropped")
+
+
+"""
+Por defecto, no hace nada. Redefinir en subclases.
+"""
 func bump() -> void:
 	pass 

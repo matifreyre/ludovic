@@ -45,10 +45,12 @@ initial_column = 7
 initial_row = 4
 
 [node name="Camera2D" type="Camera2D" parent="."]
-editor/display_folded = true
 anchor_mode = 0
 current = true
 script = ExtResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ShakeTimer" type="Timer" parent="Camera2D"]
 one_shot = true
