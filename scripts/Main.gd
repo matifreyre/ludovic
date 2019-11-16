@@ -4,8 +4,8 @@ extends Node2D
 const DEFAULT_COLUMNS : = 8
 const DEFAULT_ROWS : = 5
 
-export(int, 2, 10) var columns : int = DEFAULT_COLUMNS
-export(int, 2, 8) var rows : int = DEFAULT_ROWS
+export(int, 2, 10) var columns: int = DEFAULT_COLUMNS
+export(int, 2, 8) var rows: int = DEFAULT_ROWS
 
 onready var board: Board = $Board
 onready var player: Character = $Board/Player
@@ -27,7 +27,6 @@ func _ready() -> void:
 	self.initialize_board()
 	self.initialize_enemy()
 	$TurnQueue.play(board.characters)
-
 
 
 """
