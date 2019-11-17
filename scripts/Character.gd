@@ -87,8 +87,30 @@ Mover el personaje a la celda destino solicitada.
 func move(target) -> void:
 	if target != null:
 		set_process(false)
+		self.update_sprite(target)
 		self.transition_movement_to(target)
 
+"""
+Actualiza los sprites.
+"""
+func update_sprite(target:Vector2) -> void:
+	var current = get_coordinates()
+	var t = board.world_to_map(target)
+	if (t.y > current.y):
+		$Pivot/AnimatedSprite.play("down")
+		return
+	
+	if (t.y < current.y):
+		$Pivot/AnimatedSprite.play("up")
+		return
+	
+	if (t.x < current.x):
+		$Pivot/AnimatedSprite.play("right")
+		return
+		
+	if (t.x > current.x):
+		$Pivot/AnimatedSprite.play("left")
+		return
 
 """
 Permite jugar exactamente un turno al personaje activando el process.
