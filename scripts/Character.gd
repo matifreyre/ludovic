@@ -21,7 +21,7 @@ onready var board: Board = get_parent()
 onready var pivot: Position2D = $Pivot
 
 var is_grabbed: = false
-var ghost: Sprite
+var ghost: AnimatedSprite
 
 
 """
@@ -186,9 +186,10 @@ func move_to_target(target) -> void:
 Crear una imagen fantasma para arrastrar
 """
 func create_ghost() -> void:
-	ghost = Sprite.new()
-	ghost.texture = $Pivot/Sprite.texture
-	ghost.scale = $Pivot/Sprite.scale
+	ghost = AnimatedSprite.new()
+	ghost.frames = $Pivot/AnimatedSprite.frames
+	ghost.animation = $Pivot/AnimatedSprite.animation
+	ghost.frame = $Pivot/AnimatedSprite.frame
 	ghost.position = position
 	ghost.modulate.a = 0.5
 	get_parent().add_child(ghost)
