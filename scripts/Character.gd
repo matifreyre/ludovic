@@ -138,8 +138,7 @@ Acciones al soltar al personaje.
 """
 func perform_drop() -> void:
 	is_grabbed = false
-#	self.snap_position()
-	var target = board.world_to_map(ghost.position)
+	var target = board.world_to_map(ghost.position + pivot.position)
 	if board.is_valid_destination(target):
 		self.move_to_target(target)
 #		La señal se dispara antes del drop y no se procesa por is_grabbed,
@@ -178,7 +177,7 @@ Destruir la imagen fantasma.
 """
 func destroy_ghost() -> void:
 	ghost.queue_free()
-	$Pivot/Sprite.modulate.a = 1.0
+#	TODO: Acá agregar algún efecto
 
 
 """
