@@ -41,6 +41,7 @@ func validated_move(direction: Vector2) -> void:
 	var target_cell: Vector2 = board.request_move(self, direction)
 	if target_cell != null:
 		self.move(target_cell) 
+	emit_signal("end_turn")
 
 
 """

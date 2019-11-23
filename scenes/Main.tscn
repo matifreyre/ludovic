@@ -54,8 +54,8 @@ __meta__ = {
 
 [node name="ShakeTimer" type="Timer" parent="Camera2D"]
 one_shot = true
-[connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
 [connection signal="we_have_a_winner" from="TurnQueue" to="HUD" method="_on_TurnQueue_we_have_a_winner"]
+[connection signal="we_have_a_winner" from="TurnQueue" to="." method="_on_TurnQueue_we_have_a_winner"]
 [connection signal="bump" from="Board/Player" to="Camera2D" method="_on_Player_bump"]
 [connection signal="character_dropped" from="Board/Player" to="Board" method="_on_child_character_dropped"]
 [connection signal="hit" from="Board/Player" to="TurnQueue" method="_on_character_hit"]
