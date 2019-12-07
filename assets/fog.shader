@@ -38,6 +38,6 @@ void fragment() {
 	
 	float motion = fbm(coord + vec2(TIME *  -0.5, TIME *  0.5));
 	float final = fbm(coord + motion);
-	
+		
 	COLOR = vec4(color, final * 0.5);
 }
