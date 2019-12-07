@@ -3,6 +3,7 @@ extends Node2D
 class_name Character
 
 
+signal end_turn
 signal character_moved
 signal hit(Character)
 signal character_dropped
@@ -20,7 +21,7 @@ onready var board: Board = get_parent()
 onready var pivot: Position2D = $Pivot
 
 var is_grabbed: = false
-var position_backup: Vector2
+var ghost: AnimatedSprite
 
 
 """
@@ -38,7 +39,7 @@ Durante el drag and drop, la imagen se mueve junto con el mouse
 """
 func _process(delta: float) -> void:
 	if is_grabbed:
-		position = get_global_mouse_position() - board.position - pivot.position
+		ghost.position = get_global_mouse_position() - board.position - pivot.position
 
 
 """
@@ -58,9 +59,16 @@ func _on_Area_input_event(viewport: Viewport, event: InputEvent, shape_idx: int)
 
 
 """
+Detección del overlap de un personaje con otro. 
+"""
+func _on_Area_area_entered(area: Area2D) -> void:
+	emit_signal("hit", self)
+
+
+"""
 Pedido al tablero de resaltar celdas dentro del área de alcance de movimiento.
 """
-func request_movement_area_display():
+func request_movement_area_display() -> void:
 	board.highlight_cells_within_reach(self.get_coordinates(), self.movement_reach, self.highlight_color)
 
 
@@ -117,7 +125,7 @@ Permite jugar exactamente un turno al personaje activando el process.
 """
 func play_turn() -> void:
 	set_process(true)
-	yield(self, "character_moved")	# espero a que se mueva el personaje para terminar el turno
+	yield(self, "end_turn")	# espero a que se mueva el personaje para terminar el turno
 
 
 """
@@ -132,13 +140,6 @@ func transition_movement_to(new_position: Vector2) -> void:
 
 
 """
-Detección del overlap de un personaje con otro. 
-"""
-func _on_Area_area_entered(area: Area2D) -> void:
-	emit_signal("hit", self)
-
-
-"""
 Obtener coordenadas a partir de la posición actual.
 """
 func get_coordinates() -> Vector2:
@@ -150,7 +151,7 @@ Comienzo de movimiento del personaje por drag and drop.
 """
 func start_drag() -> void:
 	is_grabbed = true
-	position_backup = self.position
+	self.create_ghost()
 	self.request_movement_area_display()
 
 
@@ -159,21 +160,51 @@ Acciones al soltar al personaje.
 """
 func perform_drop() -> void:
 	is_grabbed = false
-	self.snap_position()
-	if board.is_valid_destination(board.world_to_map(position)):
-#			La señal se dispara antes del drop y no se procesa por is_grabbed,
-#			por lo tanto, reviso si hay overlaps y disparo de nuevo si es así.
+	var target = board.world_to_map(ghost.position + pivot.position)
+	if board.is_valid_destination(target):
+		self.move_to_target(target)
+#		La señal se dispara antes del drop y no se procesa por is_grabbed,
+#		por lo tanto, reviso si hay overlaps y disparo de nuevo si es así.
 		if not $Pivot/Area.get_overlapping_areas().empty():
 			emit_signal("hit", self)
-		emit_signal("character_moved")
 	else:
-		position = position_backup
 		self.bump()
+	self.destroy_ghost()
 	emit_signal("character_dropped")
+
+
+func move_to_target(target) -> void:
+	var path = board.get_path_between_cells(self.get_coordinates(), target)
+	for step3D in path:
+		var step2D = Vector2(step3D.x, step3D.y)
+		self.move(board.map_to_world(step2D))
+		yield(self, "character_moved")
+	emit_signal("end_turn")
+
+
+"""
+Crear una imagen fantasma para arrastrar
+"""
+func create_ghost() -> void:
+	ghost = AnimatedSprite.new()
+	ghost.frames = $Pivot/AnimatedSprite.frames
+	ghost.animation = $Pivot/AnimatedSprite.animation
+	ghost.frame = $Pivot/AnimatedSprite.frame
+	ghost.position = position
+	ghost.modulate.a = 0.5
+	get_parent().add_child(ghost)
+
+
+"""
+Destruir la imagen fantasma.
+"""
+func destroy_ghost() -> void:
+	ghost.queue_free()
+#	TODO: Acá agregar algún efecto
 
 
 """
 Por defecto, no hace nada. Redefinir en subclases.
 """
 func bump() -> void:
-	pass 
+	pass

@@ -16,14 +16,15 @@ __meta__ = {
 
 [node name="Pivot" type="Position2D" parent="."]
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
+position = Vector2( 0, -46.781 )
+frames = ExtResource( 2 )
+animation = "left"
+
 [node name="Area" type="Area2D" parent="Pivot"]
 
 [node name="Collision" type="CollisionShape2D" parent="Pivot/Area"]
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
-position = Vector2( 0, -46.781 )
-frames = ExtResource( 2 )
-animation = "left"
 [connection signal="area_entered" from="Pivot/Area" to="." method="_on_Area_area_entered"]
 [connection signal="input_event" from="Pivot/Area" to="." method="_on_Area_input_event"]
