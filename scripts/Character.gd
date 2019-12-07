@@ -29,7 +29,7 @@ Inicialización final del personaje.
 """
 func _ready() -> void: 
 	# Posición inicial de acuerdo a las coordenadas configuradas
-	pivot.position = Vector2(0, board.cell_size.y / 2)
+#	pivot.position = Vector2(0, board.cell_size.y / 2)
 	self.set_position_for(Vector2(initial_column, initial_row))
 	set_process(false)
 

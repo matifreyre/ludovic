@@ -15,9 +15,10 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Pivot" type="Position2D" parent="."]
+position = Vector2( 0, 32 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Pivot"]
-position = Vector2( 0, -46.781 )
+position = Vector2( 0, -48 )
 frames = ExtResource( 2 )
 animation = "left"
 
